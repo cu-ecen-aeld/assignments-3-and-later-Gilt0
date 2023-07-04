@@ -2,14 +2,21 @@
 
 if [ $# -lt 2 ]
 then
-    echo "Please run script like this"
+    echo "Error: Invalid number of arguments (received $# - expected 2)"
+    echo ""
+    echo "Usage"
     echo "./finder.sh <filesdir> <searchstr>"
     echo "<filesdir>  is a directory"
     echo "<searchstr> is a pattern to match in files of directory <filesdir>"
     exit 1
 elif ! [ -d $1 ]
 then
-    echo "filesdir is not a directory"
+    echo "Error: <filesdir> is not a directory"
+    echo ""
+    echo "Usage"
+    echo "./finder.sh <filesdir> <searchstr>"
+    echo "<filesdir>  is a directory"
+    echo "<searchstr> is a pattern to match in files of directory <filesdir>"
     exit 1
 fi
 
