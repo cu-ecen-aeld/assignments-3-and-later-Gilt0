@@ -1,5 +1,14 @@
 #include "systemcalls.h"
 
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+
 /**
  * @param cmd the command to execute with system()
  * @return true if the command in @param cmd was executed
@@ -17,7 +26,9 @@ bool do_system(const char *cmd)
  *   or false() if it returned a failure
 */
 
-    return true;
+    int status = system(cmd);
+    if (status == 0) return true;
+    return false;
 }
 
 /**
@@ -59,6 +70,20 @@ bool do_exec(int count, ...)
  *
 */
 
+    if(command[0][0] != '/') return false;
+    if(count == 3 && command[2][0] != '/') return false;
+
+    pid_t pid = fork();
+    if (pid == -1) {
+        return false;
+    } else if (pid > 0) {
+        int child_status; 
+        wait(&child_status);
+        if (child_status == -1) return false;
+    } else {
+        execv(command[0], (char **)command);
+        exit(EXIT_FAILURE);
+    }
     va_end(args);
 
     return true;
@@ -93,6 +118,27 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
  *
 */
 
+    if(command[0][0] != '/') return false;
+    if(count == 3 && command[2][0] != '/') return false;
+
+    int fd = open(outputfile, O_WRONLY|O_TRUNC|O_CREAT, 0644);
+    if (fd < 0) { return false; }
+
+    pid_t pid = fork();
+    if (pid == -1) {
+        return false;
+    } else if (pid > 0) {
+        int child_status; 
+        wait(&child_status);
+        if (child_status == -1) return false;
+    } else {
+        if (dup2(fd, 1) < 0) { 
+            close(fd);
+            exit(EXIT_FAILURE);
+        }
+        execv(command[0], (char **)command);
+        exit(EXIT_FAILURE);
+    }
     va_end(args);
 
     return true;
