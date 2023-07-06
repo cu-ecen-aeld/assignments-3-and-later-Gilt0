@@ -54,8 +54,6 @@ fi
 
 for i in $( seq 1 $NUMFILES)
 do
-	make clean
-	make
 	rm -f "$WRITEDIR/${username}$i.txt"
 	touch "$WRITEDIR/${username}$i.txt"
 	./writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
