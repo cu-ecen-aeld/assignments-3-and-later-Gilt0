@@ -20,6 +20,22 @@ struct thread_data{
      * if an error occurred.
      */
     bool thread_complete_success;
+
+    /**
+     * Pointer to mutex
+     */
+    pthread_mutex_t *mutex;
+    
+    
+    /**
+     * Wait time to obtain mutex
+     */
+    int wait_to_obtain_ms;
+    
+    /**
+     * Wait time to release mutex
+     */
+    int wait_to_release_ms;
 };
 
 
@@ -29,7 +45,7 @@ struct thread_data{
 * The start_thread_obtaining_mutex function should only start the thread and should not block
 * for the thread to complete.
 * The start_thread_obtaining_mutex function should use dynamic memory allocation for thread_data
-* structure passed into the thread.  The number of threads active should be limited only by the
+* structure passed into the thread. The number of threads active should be limited only by the
 * amount of available memory.
 * The thread started should return a pointer to the thread_data structure when it exits, which can be used
 * to free memory as well as to check thread_complete_success for successful exit.
