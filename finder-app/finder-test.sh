@@ -7,7 +7,7 @@ set -u
 
 NUMFILES=10
 WRITESTR=AELD_IS_FUN
-WRITEDIR=/tmp/aeld-data
+WRITEDIR=/tmp/assignment4-result.txt # tmp/aeld-data
 SCRIPT_DIR=$(dirname $0)
 username=$(cat $SCRIPT_DIR/conf/username.txt)
 
