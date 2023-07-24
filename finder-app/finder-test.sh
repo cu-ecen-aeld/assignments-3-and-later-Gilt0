@@ -7,9 +7,8 @@ set -u
 
 NUMFILES=10
 WRITESTR=AELD_IS_FUN
-WRITEDIR=/tmp/assignment4-result.txt # tmp/aeld-data
-SCRIPT_DIR=$(dirname $0)
-username=$(cat $SCRIPT_DIR/conf/username.txt)
+WRITEDIR=/tmp/aeld-data
+username=$(cat /etc/finder-app/conf/username.txt)
 
 if [ $# -lt 3 ]
 then
@@ -31,41 +30,30 @@ MATCHSTR="The number of files are ${NUMFILES} and the number of matching lines a
 echo "Writing ${NUMFILES} files containing string ${WRITESTR} to ${WRITEDIR}"
 
 rm -rf "${WRITEDIR}"
+mkdir -p "$WRITEDIR"
 
-# create $WRITEDIR if not assignment1
-assignment=`cat $SCRIPT_DIR/conf/assignment.txt`
-
-if [ $assignment != 'assignment1' ]
+if [ -d "$WRITEDIR" ]
 then
-	mkdir -p "$WRITEDIR"
-
-	#The WRITEDIR is in quotes because if the directory path consists of spaces, then variable substitution will consider it as multiple argument.
-	#The quotes signify that the entire string in WRITEDIR is a single string.
-	#This issue can also be resolved by using double square brackets i.e [[ ]] instead of using quotes.
-	if [ -d "$WRITEDIR" ]
-	then
-		echo "$WRITEDIR created"
-	else
-		exit 1
-	fi
+	echo "$WRITEDIR created"
+else
+	exit 1
 fi
-echo "Removing the old writer utility and compiling as a native application"
-cd $SCRIPT_DIR
-make clean
-make
-cd -
+
+# echo "Removing the old writer utility and compiling as a native application"
+# make clean
+# make
 
 for i in $( seq 1 $NUMFILES)
 do
-	rm -f "$WRITEDIR/${username}$i.txt"
-	touch "$WRITEDIR/${username}$i.txt"
-	$SCRIPT_DIR/writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	rm -rf $WRITEDIR/${username}$i.txt
+	touch $WRITEDIR/${username}$i.txt 
+	writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
 done
 
-OUTPUTSTRING=$($SCRIPT_DIR/finder.sh "$WRITEDIR" "$WRITESTR")
+OUTPUTSTRING=$(finder.sh "$WRITEDIR" "$WRITESTR")
 
 # remove temporary directories
-rm -rf /tmp/aeld-data
+rm -rf $WRITEDIR
 
 set +e
 echo ${OUTPUTSTRING} | grep "${MATCHSTR}"
