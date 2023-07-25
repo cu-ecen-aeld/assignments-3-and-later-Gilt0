@@ -1,12 +1,12 @@
-
 COMPILER=${CROSS_COMPILE}gcc
 
-all: writer
+all: clean writer
 
 default: writer
 
 writer:
-	@${COMPILER} writer.c -o writer
+	@echo "GCC=${GCC}"
+	@${GCC} writer.c -o writer
 
 clean:
 	@rm -f writer *.o

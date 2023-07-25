@@ -1,7 +1,7 @@
 
 COMPILER=${CROSS_COMPILE}gcc
 
-all: aesdsocket
+all: clean aesdsocket
 
 default: aesdsocket
 
