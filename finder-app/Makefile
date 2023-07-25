@@ -1,5 +1,3 @@
-COMPILER=${CROSS_COMPILE}gcc
-
 all: clean writer
 
 default: writer
