@@ -51,6 +51,8 @@ do
 done
 
 OUTPUTSTRING=$(finder.sh "$WRITEDIR" "$WRITESTR")
+touch /tmp/assignment4-result.txt
+writer /tmp/assignment4-result.txt "${OUTPUTSTRING}"
 
 # remove temporary directories
 rm -rf $WRITEDIR
