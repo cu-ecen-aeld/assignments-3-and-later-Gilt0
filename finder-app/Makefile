@@ -5,7 +5,7 @@ default: writer
 writer:
 	@echo "GCC=${GCC}"
 	${GCC} writer.c -o writer &> /tmp/writer.make.out
-	@echo ${GCC_OUTPUT}
+	@cat /tmp/writer.make.out
 
 clean:
 	@echo "rm -f writer *.o"
