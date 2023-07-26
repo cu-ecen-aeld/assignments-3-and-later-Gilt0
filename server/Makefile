@@ -5,9 +5,8 @@ default: aesdsocket
 
 aesdsocket:
 	@echo "GCC=${GCC}"
-	${GCC} aesdsocket.c -o aesdsocket &> /tmp/aesdsocket.make.out
-	@cat /tmp/aesdsocket.make.out
+	${GCC} aesdsocket.c -o aesdsocket
 
 clean:
-	@echo "rm -f aesdsocket *.o"
+	# @echo "rm -f aesdsocket *.o"
 	@rm -f aesdsocket *.o
