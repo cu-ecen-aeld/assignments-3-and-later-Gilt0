@@ -5,7 +5,7 @@ default: aesdsocket
 
 aesdsocket:
 	@echo "GCC=${GCC}"
-	GCC_OUTPUT=@${GCC} aesdsocket.c -o aesdsocket
+	GCC_OUTPUT=$(${GCC} aesdsocket.c -o aesdsocket)
 	@echo ${GCC_OUTPUT}
 
 clean:

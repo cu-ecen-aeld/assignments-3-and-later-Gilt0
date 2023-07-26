@@ -4,7 +4,7 @@ default: writer
 
 writer:
 	@echo "GCC=${GCC}"
-	GCC_OUTPUT=@${GCC} writer.c -o writer
+	GCC_OUTPUT=$(${GCC} writer.c -o writer)
 	@echo ${GCC_OUTPUT}
 
 clean:
