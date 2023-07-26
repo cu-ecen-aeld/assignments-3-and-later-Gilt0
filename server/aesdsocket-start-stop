@@ -1,0 +1,21 @@
+#! /bin/sh
+
+case "$1" in
+  start)
+	echo "Starting aesdsocket daemon"
+	start-stop-daemon --start --name aesdsocket --startas /home/gilto/Documents/assignments-3-and-later-Gilt0/server/aesdsocket -- -d
+	;;
+
+   stop)
+	echo "Stopping aesdsocket daemon"
+	start-stop-daemon --stop --name aesdsocket
+	;;
+
+      *)
+    echo "Error: argument not recognised (expected: start/stop - received $1)\n"
+	echo "Usage: $0 {start|stop}"
+
+  exit 1
+esac
+
+exit 0
