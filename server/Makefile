@@ -8,4 +8,5 @@ aesdsocket:
 	@${GCC} -g aesdsocket.c -o aesdsocket
 
 clean:
+	@echo "rm -f aesdsocket *.o"
 	@rm -f aesdsocket *.o
