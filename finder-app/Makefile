@@ -4,8 +4,8 @@ default: writer
 
 writer:
 	@echo "GCC=${GCC}"
-	@${GCC} writer.c -o writer
-	@echo "${ls}"
+	GCC_OUTPUT=@${GCC} writer.c -o writer
+	@echo ${GCC_OUTPUT}
 
 clean:
 	@echo "rm -f writer *.o"
