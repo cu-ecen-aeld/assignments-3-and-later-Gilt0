@@ -8,4 +8,5 @@ writer:
 
 clean:
 	@echo "rm -f writer *.o"
-	@rm -f writer *.o
+	@rm -f writer *.o && echo "success!" || echo "failure!" 
+
